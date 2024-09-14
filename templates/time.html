@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Time</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>The current time is</h1>
+        <p id="time">{{ current_time }}</p>
+        <a href="/"><button>Back to Home</button></a>
+    </div>
+    <script>
+        function updateTime() {
+            fetch('/api/time/')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('time').textContent = data.current_time;
+                })
+                .catch(error => console.error('Error fetching time:', error));
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
+        // Fetch the initial time immediately when the page loads
+        updateTime();
+    </script>
+</body>
+</html>
