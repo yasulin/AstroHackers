@@ -17,5 +17,13 @@ def api_time():
     current_time = now.strftime("%Y-%m-%d %H:%M:%S")
     return jsonify(current_time=current_time)
 
+@app.route('/game/')
+def game():
+    return render_template('game.html')
+
+@app.route('/typing-test/')
+def typing_test():
+    return render_template('typing_test.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

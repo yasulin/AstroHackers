@@ -40,3 +40,58 @@ p {
     font-size: 18px;
     color: #555;
 }
+
+#game-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background-color: #000;
+    border: 2px solid white;
+    overflow: hidden;
+}
+
+.spaceship {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+}
+
+.falling-object {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+}
+
+#score {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+}
+
+#word-list {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#input-bar {
+    font-size: 24px;
+    padding: 5px;
+    width: 80%;
+}
+
+.highlight {
+    text-decoration: underline;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}

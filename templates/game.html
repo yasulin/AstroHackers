@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invader Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>AVOID THE FALLING BLOCKS!</h1>
+        <div id="game-container">
+            <div class="spaceship" id="spaceship"></div>
+        </div>
+        <div id="score">Points: 0</div>
+        <a href="/"><button>Back to Home</button></a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const spaceship = document.getElementById('spaceship');
+            const gameContainer = document.getElementById('game-container');
+            const scoreDisplay = document.getElementById('score');
+            const containerWidth = gameContainer.clientWidth;
+            const spaceshipWidth = spaceship.clientWidth;
+            const spaceshipSpeed = 10;
+            const objectSpeed = 5;
+            let score = 0;
+            let createObjectInterval = 1000;
+            let gameInterval;
+
+            function startGame() {
+                gameInterval = setInterval(createFallingObject, createObjectInterval);
+            }
+
+            function createFallingObject() {
+                const object = document.createElement('div');
+                object.classList.add('falling-object');
+                object.style.left = `${Math.random() * (containerWidth - 20)}px`;
+                gameContainer.appendChild(object);
+                moveFallingObject(object);
+            }
+
+            function moveFallingObject(object) {
+                const objectInterval = setInterval(() => {
+                    const objectTop = parseInt(window.getComputedStyle(object).getPropertyValue('top'));
+                    if (objectTop >= gameContainer.clientHeight) {
+                        object.remove();
+                        clearInterval(objectInterval);
+                        increaseScore();
+                    } else {
+                        object.style.top = `${objectTop + objectSpeed}px`;
+                        checkCollision(object);
+                    }
+                }, 50);
+            }
+
+            function increaseScore() {
+                score++;
+                scoreDisplay.textContent = `Points: ${score}`;
+                if (score >= 100) {
+                    alert("Congratulations! You've avoided 100 blocks successfully!");
+                    window.location.href = '/';
+                } else {
+                    adjustDifficulty();
+                }
+            }
+
+            function adjustDifficulty() {
+                clearInterval(gameInterval);
+                if (score >= 90) {
+                    createObjectInterval = 100;
+                } else if (score >= 80) {
+                    createObjectInterval = 200;
+                } else if (score >= 70) {
+                    createObjectInterval = 300;
+                } else if (score >= 60) {
+                    createObjectInterval = 400;
+                } else if (score >= 50) {
+                    createObjectInterval = 500;
+                } else if (score >= 40) {
+                    createObjectInterval = 600;
+                } else if (score >= 30) {
+                    createObjectInterval = 700;
+                } else if (score >= 20) {
+                    createObjectInterval = 800;
+                } else if (score >= 10) {
+                    createObjectInterval = 900;
+                } else {
+                    createObjectInterval = 1000;
+                }
+                gameInterval = setInterval(createFallingObject, createObjectInterval);
+            }
+
+            function checkCollision(object) {
+                const spaceshipRect = spaceship.getBoundingClientRect();
+                const objectRect = object.getBoundingClientRect();
+                if (
+                    spaceshipRect.x < objectRect.x + objectRect.width &&
+                    spaceshipRect.x + spaceshipRect.width > objectRect.x &&
+                    spaceshipRect.y < objectRect.y + objectRect.height &&
+                    spaceshipRect.height + spaceshipRect.y > objectRect.y
+                ) {
+                    window.location.href = '/';
+                }
+            }
+
+            document.addEventListener('keydown', (e) => {
+                const left = parseInt(window.getComputedStyle(spaceship).getPropertyValue('left'));
+                if (e.key === 'ArrowLeft' && left > 0) {
+                    spaceship.style.left = `${left - spaceshipSpeed}px`;
+                } else if (e.key === 'ArrowRight' && left < containerWidth - spaceshipWidth) {
+                    spaceship.style.left = `${left + spaceshipSpeed}px`;
+                }
+            });
+
+            startGame();
+        });
+    </script>
+</body>
+</html>

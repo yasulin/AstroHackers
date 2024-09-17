@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Test</h1>
+        <div id="word-list"></div>
+        <input type="text" id="input-bar" autofocus>
+        <a href="/"><button>Back to Home</button></a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wordList = document.getElementById('word-list');
+            const inputBar = document.getElementById('input-bar');
+            const words = [
+                "space", "rocket", "star", "planet", "galaxy", "asteroid", "moon", "comet", "universe", "satellite"
+                //, "nebula", "blackhole", "supernova", "meteor", "orbit", "eclipse", "telescope", "gravity", "solar", "cosmos"
+            ];
+            let currentWordIndex = 0;
+            let currentWord = words[currentWordIndex];
+
+            function displayWords() {
+                wordList.innerHTML = "";
+                for (let i = 0; i < words.length; i++) {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.textContent = words[i];
+                    if (i === currentWordIndex) {
+                        wordSpan.classList.add('highlight');
+                    }
+                    wordList.appendChild(wordSpan);
+                    wordList.appendChild(document.createTextNode(" "));
+                }
+            }
+
+            function checkInput() {
+                const typed = inputBar.value.trim();
+                const currentWordSpan = wordList.children[currentWordIndex * 1];
+                if (typed === currentWord) {
+                    currentWordSpan.classList.add('correct');
+                    currentWordSpan.classList.remove('incorrect');
+                } else if (currentWord.startsWith(typed)) {
+                    currentWordSpan.classList.remove('incorrect');
+                } else {
+                    currentWordSpan.classList.add('incorrect');
+                }
+            }
+
+            inputBar.addEventListener('input', checkInput);
+
+            inputBar.addEventListener('keydown', (e) => {
+                if (e.key === ' ') {
+                    e.preventDefault();
+                    const typed = inputBar.value.trim();
+                    const currentWordSpan = wordList.children[currentWordIndex * 1];
+                    if (typed === currentWord) {
+                        currentWordSpan.classList.add('correct');
+                    } else {
+                        currentWordSpan.classList.add('incorrect');
+                    }
+                    inputBar.value = "";
+                    currentWordIndex += 1;
+                    // currentWordIndex = (currentWordIndex + 1) % words.length;
+                    currentWord = words[currentWordIndex];
+                    displayWords();
+                }
+            });
+
+            displayWords();
+        });
+    </script>
+</body>
+</html>
