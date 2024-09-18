@@ -5,13 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 2s ease-in-out;
+        }
+        #background1 { z-index: -2; }
+        #background2 { z-index: -1; opacity: 0; }
+        .container {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
+    <div id="background1" class="background"></div>
+    <div id="background2" class="background"></div>
     <div class="container">
-        <h1>Welcome to AstroHackers Page!</h1>
+        <h1>Welcome to AstroHackers Page!!</h1>
         <a href="/time/"><button>Show Time</button></a>
         <a href="/game/"><button>Play Game</button></a>
         <a href="/typing-test/"><button>Typing Test</button></a>
     </div>
+
+    <script>
+        const backgrounds = [
+            "{{ url_for('static', filename='img/astronaut-1840936_1920.jpg') }}",
+            "{{ url_for('static', filename='img/planet-581239_1920.jpg') }}",
+            "{{ url_for('static', filename='img/satellite-67718_1920.jpg') }}",
+            // Add more background image URLs as needed
+        ];
+
+        let currentIndex = 0;
+        let currentBackground = document.getElementById('background1');
+        let nextBackground = document.getElementById('background2');
+
+        function changeBackground() {
+            nextBackground.style.backgroundImage = `url('${backgrounds[currentIndex]}')`;
+            nextBackground.style.opacity = '1';
+            currentBackground.style.opacity = '0';
+
+            // Swap the background elements
+            [currentBackground, nextBackground] = [nextBackground, currentBackground];
+
+            currentIndex = (currentIndex + 1) % backgrounds.length;
+        }
+
+        // Change background every 5 seconds
+        setInterval(changeBackground, 5000);
+
+        // Set initial background
+        currentBackground.style.backgroundImage = `url('${backgrounds[0]}')`;
+    </script>
 </body>
 </html>
