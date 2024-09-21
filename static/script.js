@@ -28,14 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const letter = String.fromCharCode(65 + index); // A, B, C, D
             return `<button onclick="selectAnswer('${letter}')">${answer}</button>`;
         }).join('');
-        modal.style.display = 'block';
+        modal.style.display = 'flex'; // Show modal
         closeModalButton.style.display = 'none';
     }
 
     function showLoadingMessage() {
         questionElement.textContent = "Loading question...";
         answersElement.innerHTML = '';
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
         closeModalButton.style.display = 'none';
     }
 
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (answer === correctAnswer) {
             questionElement.textContent = "Congratulations!";
             answersElement.innerHTML = '';
-            closeModalButton.style.display = 'block';
+            closeModalButton.style.display = 'flex';
         } else {
             questionElement.textContent = `Incorrect! The correct answer is ${correctAnswer}. ${description}`;
             answersElement.innerHTML = '<button onclick="fetchQuiz()">Next Question</button>';

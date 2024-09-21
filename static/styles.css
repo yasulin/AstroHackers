@@ -50,7 +50,6 @@ p {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0,0,0,0.4);
     display: flex;
     justify-content: center;
@@ -59,14 +58,11 @@ p {
 
 .modal-content {
     background-color: #fefefe;
-    margin: auto;
     padding: 20px;
-    border: none;
     border-radius: 10px;
     width: 80%;
     max-width: 800px;
     text-align: center;
-    font-size: 16px; /* Adjusted font size */
 }
 
 #answers {
