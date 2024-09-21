@@ -21,43 +21,36 @@ def get_quiz():
             messages=[
                 {
                     "role": "system",
-                    "content": "You are the smartest astrophysicist and the most intelligent aerospace engineer in the world.."
+                    "content": "You are the smartest astrophysicist and the most intelligent aerospace engineer in the world."
                 },
                 {
                     "role": "user",
                     "content":
                         "Generate a random space quiz question related to solar system, galaxy, astrophysics, rockets, satellites and four possible answers."\
-                        "Please provide the correct answer and the description of the answer in around 200 words."\
+
                         f"RandomSeed: {seed}"\
-                        "The format of the response should be as follows and do not include titles:"\
-                        "<question>"\
-                        "A) <answer 1>"\
-                        "B) <answer 2>"\
-                        "C) <answer 3>"\
-                        "D) <answer 4>"\
-                        "<correct answer>"\
-                        "<description>"
+                        "The format of the response must be as follows and do not include titles:"\
+                        """
+                        <question>\nA) <answer 1>\nB) <answer 2>\nC) <answer 3>\nD) <answer 4>\n<correct answer>\n<description>
+                        """
+                        "The <description> must be within 200 words that is conclusive in one paragraph ."\
                 }
             ],
-
-            max_tokens=150,
+            max_tokens=300,
             temperature=0.9,
             top_p=0.95
-
         )
         quiz_text = response.choices[0].message['content'].strip()
         quiz = parse_quiz(quiz_text)
         return jsonify({"quiz": quiz, "seed": seed})
     except Exception as e:
-        # return jsonify({"error": "Error generating quiz"}), 500
         return f"Error generating quiz: {e}"
 
 def parse_quiz(text):
-    # Logic to parse quiz text (sample)
     lines = text.split('\n')
-    question = lines[0]
-    answers = lines[1:5]
-    correct_answer = lines[-2]
+    question = lines[0].rstrip()
+    answers = [s.rstrip() for s in lines[1:5]]
+    correct_answer = lines[5].split(')')[0].rstrip()
     description = lines[-1]
     return {
         "question": question,

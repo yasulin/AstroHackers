@@ -9,9 +9,13 @@
 <body>
     <div id="quiz-container">
         <h1>Mandatory Space Quiz</h1>
-        <p id="question">Loading...</p>
-        <div id="answers"></div>
-        <button id="submit-button">Submit!</button>
+    </div>
+    <div id="quiz-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="question">Loading...</h2>
+            <div id="answers"></div>
+            <button id="close-modal" style="display:none;">Close</button>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
