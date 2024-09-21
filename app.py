@@ -15,10 +15,16 @@ def index():
 def get_quiz():
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": "Generate a space-related quiz question and four possible answers."}
+                {
+                    "role": "system",
+                    "content": "You are the smartest astrophysicist and the most intelligent aerospace engineer in the world.."
+                },
+                {
+                    "role": "user",
+                    "content": "Generate a random space quiz question related to solar system, galaxy, astrophysics, rockets or satellites and four possible answers. Please provide the correct answer in the list of answers at the end. The format of the response should be as follows: <question> /n A) <answer 1> /n B) <answer 2> /n C) <answer 3> /n D) <answer 4> /n <correct answer>"
+                }
             ],
             max_tokens=150
         )
@@ -26,7 +32,6 @@ def get_quiz():
         quiz = parse_quiz(quiz_text)
         return jsonify(quiz)
     except Exception as e:
-        print(f"Error generating quiz: {e}")
         # return jsonify({"error": "Error generating quiz"}), 500
         return f"Error generating quiz: {e}"
 
@@ -34,10 +39,14 @@ def parse_quiz(text):
     # Logic to parse quiz text (sample)
     lines = text.split('\n')
     question = lines[0]
-    answers = lines[2:]
+    answers = lines[1:5]
+
+    correct_answer = lines[-1].split(':')[-1]
     return {
         "question": question,
-        "answers": answers
+        "answers": answers,
+        "correct_answer": correct_answer,
+        "whole_text": text
     }
 
 @app.route('/debug/')
