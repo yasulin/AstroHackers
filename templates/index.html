@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>The Space Enforcement</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to AstroHackers Page!</h1>
-        <a href="/time/"><button>Show Time</button></a>
-        <a href="/game/"><button>Play Game</button></a>
-        <a href="/typing-test/"><button>Typing Test</button></a>
+    <div id="quiz-container">
+        <h1>Mandatory Space Quiz</h1>
+        <p id="question">Loading...</p>
+        <div id="answers"></div>
+        <button id="submit-button">Submit!</button>
     </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
