@@ -23,7 +23,20 @@ def get_quiz():
                 },
                 {
                     "role": "user",
-                    "content": "Generate a random space quiz question related to solar system, galaxy, astrophysics, rockets or satellites and four possible answers. Please provide the correct answer in the list of answers at the end. The format of the response should be as follows: <question> /n A) <answer 1> /n B) <answer 2> /n C) <answer 3> /n D) <answer 4> /n <correct answer>"
+                    "content":
+                        """
+                        Generate a random space quiz question related to solar system, galaxy, astrophysics, rockets or satellites and four possible answers.
+                        Please provide the correct answer and the description of the answer in around 200 words.
+
+                        The format of the response should be as follows:
+                        <question> /n
+                        A) <answer 1> /n
+                        B) <answer 2> /n
+                        C) <answer 3> /n
+                        D) <answer 4> /n
+                        <correct answer> /n
+                        <description>
+                        """
                 }
             ],
             max_tokens=150
@@ -41,11 +54,13 @@ def parse_quiz(text):
     question = lines[0]
     answers = lines[1:5]
 
-    correct_answer = lines[-1].split(':')[-1]
+    correct_answer = lines[-5]
+    description = lines[-1]
     return {
         "question": question,
         "answers": answers,
         "correct_answer": correct_answer,
+        "description": description,
         "whole_text": text
     }
 
