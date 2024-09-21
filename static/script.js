@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchQuiz() {
         try {
+            showLoadingMessage();
             const response = await fetch('/get-quiz');
             const data = await response.json();
             displayQuiz(data.quiz);
@@ -27,6 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const letter = String.fromCharCode(65 + index); // A, B, C, D
             return `<button onclick="selectAnswer('${letter}')">${answer}</button>`;
         }).join('');
+        modal.style.display = 'block';
+        closeModalButton.style.display = 'none';
+    }
+
+    function showLoadingMessage() {
+        questionElement.textContent = "Loading question...";
+        answersElement.innerHTML = '';
         modal.style.display = 'block';
         closeModalButton.style.display = 'none';
     }
