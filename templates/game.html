@@ -8,11 +8,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>AVOID THE FALLING BLOCKS!</h1>
+        <h1>Avoid the Falling Objects</h1>
         <div id="game-container">
             <div class="spaceship" id="spaceship"></div>
         </div>
-        <div id="score">Points: 0</div>
+        <div id="score">Score: 0</div>
         <a href="/"><button>Back to Home</button></a>
     </div>
     <script>
@@ -22,10 +22,10 @@
             const scoreDisplay = document.getElementById('score');
             const containerWidth = gameContainer.clientWidth;
             const spaceshipWidth = spaceship.clientWidth;
-            const spaceshipSpeed = 10;
-            const objectSpeed = 5;
+            const spaceshipSpeed = 30;
+            let objectSpeed = 10;
             let score = 0;
-            let createObjectInterval = 1000;
+            let createObjectInterval = 300;
             let gameInterval;
 
             function startGame() {
@@ -57,37 +57,19 @@
             function increaseScore() {
                 score++;
                 scoreDisplay.textContent = `Points: ${score}`;
-                if (score >= 100) {
-                    alert("Congratulations! You've avoided 100 blocks successfully!");
+                if (score >= 1000) {
+                    alert("Congratulations! You've avoided 1000 blocks successfully!");
                     window.location.href = '/';
                 } else {
+                    consol.log("adjusting difficulty")
                     adjustDifficulty();
                 }
             }
 
             function adjustDifficulty() {
                 clearInterval(gameInterval);
-                if (score >= 90) {
-                    createObjectInterval = 100;
-                } else if (score >= 80) {
-                    createObjectInterval = 200;
-                } else if (score >= 70) {
-                    createObjectInterval = 300;
-                } else if (score >= 60) {
-                    createObjectInterval = 400;
-                } else if (score >= 50) {
-                    createObjectInterval = 500;
-                } else if (score >= 40) {
-                    createObjectInterval = 600;
-                } else if (score >= 30) {
-                    createObjectInterval = 700;
-                } else if (score >= 20) {
-                    createObjectInterval = 800;
-                } else if (score >= 10) {
-                    createObjectInterval = 900;
-                } else {
-                    createObjectInterval = 1000;
-                }
+                createObjectInterval = int(300 - (100 - score)/200);
+                objectSpeed = int(10 + score);
                 gameInterval = setInterval(createFallingObject, createObjectInterval);
             }
 
