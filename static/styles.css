@@ -69,6 +69,13 @@ p {
     font-size: 16px; /* Adjusted font size */
 }
 
+#answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
 #close-modal {
     background-color: #4CAF50;
     color: white;
