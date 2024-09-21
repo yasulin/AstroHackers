@@ -86,3 +86,11 @@ p {
 #close-modal:hover {
     background-color: #45a049;
 }
+
+.description {
+    font-size: 16px;
+    text-align: justify;
+    color: #555;
+    margin-top: 10px;
+    padding: 10px 20px;
+}

@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const questionElement = document.getElementById('question');
+    const descriptionElement = document.getElementById('description');
+    console.log(questionElement)
+    console.log(descriptionElement)
     const answersElement = document.getElementById('answers');
     const modal = document.getElementById('quiz-modal');
     const closeModalButton = document.getElementById('close-modal');
@@ -8,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchQuiz() {
         try {
+            openFullScreen();
             showLoadingMessage();
             const response = await fetch('/get-quiz');
             const data = await response.json();
@@ -22,21 +26,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayQuiz(data) {
         questionElement.textContent = data.question;
+        descriptionElement.textContent = '';
         correctAnswer = data.correct_answer;
         description = data.description;
         answersElement.innerHTML = data.answers.map((answer, index) => {
             const letter = String.fromCharCode(65 + index); // A, B, C, D
             return `<button onclick="selectAnswer('${letter}')">${answer}</button>`;
         }).join('');
-        modal.style.display = 'flex'; // Show modal
+        modal.style.display = 'flex';
         closeModalButton.style.display = 'none';
     }
 
     function showLoadingMessage() {
         questionElement.textContent = "Loading question...";
+        descriptionElement.textContent = '';
         answersElement.innerHTML = '';
         modal.style.display = 'flex';
         closeModalButton.style.display = 'none';
+    }
+
+    function openFullScreen() {
+        // Get the document element to enter full screen
+        let elem = document.documentElement;
+
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { // Firefox
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { // Internet Explorer / Edge
+            elem.msRequestFullscreen();
+        }
     }
 
     window.selectAnswer = function(answer) {
@@ -44,10 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(correctAnswer)
         if (answer === correctAnswer) {
             questionElement.textContent = "Congratulations!";
+            descriptionElement.textContent = '';
             answersElement.innerHTML = '';
             closeModalButton.style.display = 'flex';
         } else {
-            questionElement.textContent = `Incorrect! The correct answer is ${correctAnswer}. ${description}`;
+            questionElement.textContent = `Incorrect! The correct answer is ${correctAnswer}.`;
+            descriptionElement.textContent = description;
             answersElement.innerHTML = '<button onclick="fetchQuiz()">Next Question</button>';
         }
     };
@@ -57,11 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
         window.close();
     };
 
-    function blockAccess() {
-        // Placeholder for blocking access logic
-        // Consider using fullscreen mode or other methods to keep the user focused on the quiz
-    }
-
-    window.onload = blockAccess;
-    fetchQuiz();
+    window.onload = function() {
+        openFullScreen();
+        fetchQuiz();
+    };
 });
