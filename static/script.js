@@ -63,10 +63,38 @@ document.addEventListener('DOMContentLoaded', () => {
     closeModalButton.onclick = function() {
         modal.style.display = 'none';
         // window.close();
+        // Start background transition
+        startBackgroundTransition();
     };
 
     window.onload = function() {
         fetchQuiz();
     };
 
+    // Function to handle background transitions
+    function startBackgroundTransition() {
+        const originalBackground = document.body.style.backgroundImage;
+        const firstImageUrl = 'url("static/closed-hatch.png")'; // Replace with the actual path to the first image
+        const secondImageUrl = 'url("static/open-hatch.png")'; // Replace with the actual path to the second image
+
+        // Set the first image as the background
+        document.body.style.backgroundImage = firstImageUrl;
+        document.body.classList.add('transition-background-1');
+
+        // Display the first image for a configurable time
+        setTimeout(() => {
+            // Fade out the first image and fade in the second image
+            document.body.classList.remove('transition-background-1');
+            document.body.classList.add('transition-background-2');
+            document.body.style.backgroundImage = secondImageUrl;
+
+            // Display the second image for 1 seconds
+            setTimeout(() => {
+                // Revert to the original background
+                document.body.classList.remove('transition-background-2');
+                document.body.classList.add('transition-background-original');
+                document.body.style.backgroundImage = originalBackground;
+            }, 3000); // Display the second image for 1 seconds
+        }, 1900); // Configurable time to display the first image
+    }
 });
