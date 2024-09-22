@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchQuiz() {
         try {
-            openFullScreen();
             showLoadingMessage();
             const response = await fetch('/get-quiz');
             const data = await response.json();
@@ -45,21 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModalButton.style.display = 'none';
     }
 
-    function openFullScreen() {
-        // Get the document element to enter full screen
-        let elem = document.documentElement;
-
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.mozRequestFullScreen) { // Firefox
-            elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { // Internet Explorer / Edge
-            elem.msRequestFullscreen();
-        }
-    }
-
     window.selectAnswer = function(answer) {
         console.log(answer);
         console.log(correctAnswer);
@@ -84,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.onload = function() {
-        openFullScreen();
         fetchQuiz();
     };
 
