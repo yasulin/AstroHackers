@@ -22,22 +22,6 @@ body {
 
 }
 
-/* Add these styles to handle the background transitions */
-body.transition-background-1 {
-    background-image: url('static/closed-hatch.png'); /* Replace with the actual path to the first image */
-    transition: background-image 1s ease-in-out; /* Configurable transition time */
-}
-
-body.transition-background-2 {
-    background-image: url('static/open-hatch.png'); /* Replace with the actual path to the second image */
-    transition: background-image 1s ease-in-out; /* Configurable transition time */
-}
-
-body.transition-background-original {
-    background-image: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGNoZGd6bnVibjZuNHhwN3JyaGVnOG8xY2VybG9reTV2MzVnMGtobSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUPGcfzaX9hFFQJYre/giphy.gif'); /* Replace with the direct GIF URL */
-    transition: background-image 2s ease-in-out; /* Configurable transition time */
-}
-
 .container {
     background-color: #000;
     padding: 20px;
