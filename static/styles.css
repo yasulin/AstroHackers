@@ -1,16 +1,29 @@
 body {
     font-family: 'Ubuntu', sans-serif;
-    background-color: #f0f0f0;
+    background-color: #000;
+    color: #fff;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+
+    /* Embed the GIF as the background image */
+    background-image: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGNoZGd6bnVibjZuNHhwN3JyaGVnOG8xY2VybG9reTV2MzVnMGtobSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUPGcfzaX9hFFQJYre/giphy.gif'); /* Replace with the direct GIF URL */
+    /* Make the background cover the entire page */
+    background-size: cover;
+    /* Fix the background so it doesn't scroll */
+    background-attachment: fixed;
+    /* Center the background */
+    background-position: center;
+    /* Prevent background from repeating */
+    background-repeat: no-repeat;
+
 }
 
 .container {
-    background-color: white;
+    background-color: #000;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -19,7 +32,8 @@ body {
 
 button {
     font-family: 'Ubuntu', sans-serif;
-    background-color: #4CAF50;
+    /* background-color: #4CAF50; */
+    background-color: #0B2B40;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -30,11 +44,12 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    /* background-color: #45a049; */
+    background-color: #154659;
 }
 
 h1 {
-    color: #333;
+    color: #fff;
 }
 
 p {
@@ -57,7 +72,9 @@ p {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    color: #fff;
+    background-color: #000;
+    border: solid 2px #fff;
     padding: 20px;
     border-radius: 10px;
     width: 80%;
@@ -73,7 +90,8 @@ p {
 }
 
 #close-modal {
-    background-color: #4CAF50;
+    /* background-color: #4CAF50; */
+    background-color: #0B2B40;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -84,13 +102,14 @@ p {
 }
 
 #close-modal:hover {
-    background-color: #45a049;
+    /* background-color: #45a049; */
+    background-color: #154659;
 }
 
 .description {
     font-size: 16px;
     text-align: justify;
-    color: #555;
+    color: #ccc;
     margin-top: 10px;
     padding: 10px 20px;
 }
