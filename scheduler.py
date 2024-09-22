@@ -4,7 +4,7 @@ import time
 import webbrowser
 
 def open_browser():
-    webbrowser.open("http://localhost:5000")
+    webbrowser.open("https://astro-hackers.vercel.app/")
 
 
 def schedule_browser_opening():

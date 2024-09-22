@@ -176,4 +176,8 @@ def debug():
     return f"OpenAI API Key: {os.getenv('OPENAI_API_KEY')}"
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    ### For Development
+    # app.run(debug=True, host='0.0.0.0')
+
+    ### For Production
+    app.run()
