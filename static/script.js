@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeModalButton.onclick = function() {
         modal.style.display = 'none';
-        window.close();
+        // window.close();
         // Start background transition
         startBackgroundTransition();
     };
