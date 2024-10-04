@@ -83,7 +83,7 @@ def debug():
 
 if __name__ == '__main__':
     ### For Development
-    app.run(debug=True, host='0.0.0.0')
+    # app.run(debug=True, host='0.0.0.0')
 
     ### For Production
-    # app.run()
+    app.run()
