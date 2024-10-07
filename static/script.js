@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showLoadingMessage();
             const response = await fetch('/get-quiz');
             const data = await response.json();
-            displayQuiz(data.quiz);
+            displayQuiz(data);
         } catch (error) {
             console.error('Error fetching quiz:', error);
         }
@@ -28,9 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
         descriptionElement.textContent = '';
         correctAnswer = data.correct_answer;
         description = data.description;
-        answersElement.innerHTML = data.answers.map((answer, index) => {
-            const letter = String.fromCharCode(65 + index); // A, B, C, D
-            return `<button onclick="selectAnswer('${letter}')">${answer}</button>`;
+        answersElement.innerHTML = data.answers.map((answer) => {
+            return `<button onclick="selectAnswer('${answer}')">${answer}</button>`;
         }).join('');
         modal.style.display = 'flex';
         closeModalButton.style.display = 'none';
